@@ -4,7 +4,7 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int> > permute(vector<int> &num) {
-        sort(num.begin(),num.end());
+        //sort(num.begin(),num.end());
         int n=num.size();
         result.push_back(num);
         if(n==1){
@@ -31,8 +31,17 @@ private:
 
 int main(){
 	Solution s;
-	int tmp[]={1,2,3};
+	int tmp[]={2,1,3};
 	vector<int> t(tmp,tmp+3);
 	vector<vector<int> > r=s.permute(t);
 	cout<<r.size()<<endl;
+	vector<vector<int> >::iterator iibegin=r.begin(),iiend=r.end();
+	for(;iibegin!=iiend;iibegin++){
+	                    vector<int> tt=*iibegin;
+	                    int size=tt.size();
+						int j=0;
+	                    while(j<size)
+	                    	cout<<tt[j++]<<" ";
+	                    	cout<<endl;
+                	}
 }
