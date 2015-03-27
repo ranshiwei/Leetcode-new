@@ -5,49 +5,33 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int> > combine(int n, int k) {
-        if(k>n) return result;
-        if(k==n){
-        	vector<int> r;
-        	for(int i=1;i<=n;i++){
-        		r.push_back(i);
-        	}
-        	result.push_back(r);
-        	return result;
-        }
-        if(k==1){
-        	for(int i=0;i<n;i++){
-        		vector<int> r;
-        		r.push_back(i+1);
-        		result.push_back(r);
-        	}
-        	return result;
-        }
+        if(k>n||k<1||n<1) return result;
         for(int i=1;i<=n-k+1;i++){
-        	vector<int> r;
-        	int count=k-1;
-        	while(count){
-        		for(int j=i;j<i+k-1;j++){
-	        		r.push_back(j);
-	        	}
-				for(int m=i+k-1;m<=n;m++){
-		                r.push_back(m);
-		                result.push_back(r);
-		                r.pop_back();
-		                count--;
-		        }
-        	}
-        	
-            	
-            
+            path.push_back(i);
+            comb(n,i,k,result,path);
+            path.pop_back();
         }
         return result;
     }
+    void comb(int n,int index,int k,vector<vector<int> > &result,vector<int> &path){
+        if(path.size()==k){
+            result.push_back(path);
+            return;
+        } 
+        for(int i=index+1;i<=n;i++){
+            path.push_back(i);
+            comb(n,index+1,k,result,path);
+            path.pop_back();
+        }
+    }
 private:
     vector<vector<int> >result;
+    vector<int> path;
 };
+
 int main(){
 		Solution s;
-		vector<vector<int> >  rrr=s.combine(5,3);
+		vector<vector<int> >  rrr=s.combine(2,1);
 		vector<vector<int> >::iterator iibegin=rrr.begin(),iiend=rrr.end();
 		for(;iibegin!=iiend;iibegin++){
 		    vector<int> tt=*iibegin;
@@ -56,6 +40,5 @@ int main(){
 		    while(j<size)
 		     	cout<<tt[j++]<<' ';;
 		       	cout<<endl<<endl;;
-	        }
-	
+	    }	
 }
